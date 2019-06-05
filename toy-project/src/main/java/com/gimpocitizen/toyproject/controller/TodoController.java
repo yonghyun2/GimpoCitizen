@@ -5,10 +5,9 @@ import com.gimpocitizen.toyproject.model.vo.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = {"*"})
 @RestController
@@ -29,5 +28,15 @@ public class TodoController {
         else{
             return new ResponseEntity<>(false, HttpStatus.CONFLICT);
         }
+    }
+
+    @GetMapping("/todo/{todo_no}")
+    public ResponseEntity<Todo> GetTodoDetail(@PathVariable Long todo_no){
+        return new ResponseEntity<>(todoService.readTodo(todo_no), HttpStatus.OK);
+    }
+
+    @GetMapping("/todolist")
+    public ResponseEntity<List<Todo>> GetTodoList(){
+        return new ResponseEntity<>(todoService.readTodoList(), HttpStatus.OK);
     }
 }
