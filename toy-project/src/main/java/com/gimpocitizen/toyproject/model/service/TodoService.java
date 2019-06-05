@@ -5,6 +5,8 @@ import com.gimpocitizen.toyproject.model.vo.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TodoService {
 
@@ -23,19 +25,27 @@ public class TodoService {
         return true;
     }
 
-    public boolean removeTodo(Long todo_no){
+    public Todo readTodo(Long todo_no){
+        return todoDao.selectTodo(todo_no);
+    }
+
+    public List<Todo> readTodoList(){
+        return todoDao.selectTodoList();
+    }
+
+    public boolean updateTodo(Todo todo){
+        if(todoDao.selectTodo(todo.getTodo_no())==null) {
+            return false;
+        }
+        todoDao.updateTodo(todo);
+        return true;
+    }
+
+    public boolean deleteTodo(Long todo_no){
         if (todoDao.selectTodo(todo_no)==null){
             return false;
         }
         todoDao.deleteTodo(todo_no);
-        return true;
-    }
-
-    public boolean updateTodo(Todo todo){
-        if(todoDao.selectTodo(todo.getTodo_no())==null){
-            return false;
-        }
-        todoDao.updateTodo(todo);
         return true;
     }
 }
