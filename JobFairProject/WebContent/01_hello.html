@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<!-- <link type="text/css" rel="stylesheet" href="../css/table.css"> -->
+<title>SSAFY</title>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuex"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link href="../css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+  
+   <style>
+        * {  box-sizing: border-box;  }
+        .header {
+            background-color: aqua; padding: 30px 30px;
+            color: black; text-align: center;
+        }
+        .header:after {
+            content: ""; display: table; clear: both;
+        }
+    </style>
+</head>
+
+
+<script type="text/javascript">
+	var eventBus = new Vue();
+</script>
+
+<style>
+    .input {
+        border: none; width: 75%; height:35px; padding: 10px;
+        float: left; font-size: 16px;
+    }
+    .addbutton {
+        padding: 10px; width: 25%; height:35px; background: #d9d9d9;
+        color: #555; float: left; text-align: center;
+        font-size: 13px; cursor: pointer; transition: 0.3s;
+    }
+    .addbutton:hover { background-color: #bbb; }
+    
+    ul {  margin: 0; padding: 0; }
+    ul li {
+        cursor: pointer; position: relative; padding: 8px 8px 8px 40px;
+        background: #eee; font-size: 14px;  transition: 0.2s;
+        -webkit-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+    }
+    ul li:hover {  background: #ddd;  }
+    ul li.checked {
+        background: #BBB;  color: #fff; text-decoration: line-through;
+    }
+    ul li.checked::before {
+        content: ''; position: absolute; border-color: #fff;
+        border-style: solid; border-width: 0px 1px 1px 0px;
+        top: 10px; left: 16px;  transform: rotate(45deg);
+        height: 8px; width: 8px;
+    }
+    .close {
+        position: absolute; right: 0; top: 0;
+        padding: 8px 12px 8px 12px
+    }
+    .close:hover {
+        background-color: #f44336;  color: white;
+    }
+    
+</style>
+
+
+<template id="studyTemplate">
+<div>
+	<div>
+        <input class="input" type="text" id="task" v-model.trim="todo"
+               placeholder="입력 후 엔터!">
+        <span class="addbutton">추 가</span>
+        
+    </div>    
+    <div>
+    <ul id="todolist">
+        <li v-for="(a, index) in todolist">
+            <span>{{ a.todo }}</span>
+            <span v-if="a.done"> (완료)</span>
+            <span class="close" v-on:click.stop="deleteTodo(index)">&#x00D7;</span>
+        </li>
+    </ul>
+    </div>
+ </div>	
+</template>
+
+<script type="text/javascript">
+	var studyList = Vue.component('studyList',{
+		template : '#studyTemplate',
+		data : function(){
+			return {
+				todo:'',
+				todolist : [
+				    { todo : "영화보기", done:false },
+	                { todo : "주말 산책", done:true },
+	                { todo : "ES6 학습", done:false },
+	                { todo : "잠실 야구장", done:false }
+			]
+			}
+		}
+	});
+</script>
+
+
+
+<body>
+<div id="app">
+    <div id="header" class="header">
+        <h2>Todo List App</h2>
+    </div>
+    <ul>
+   		<li><router-link to="/study">공부</router-link></li>   
+  		<li><router-link to="/study">취미</router-link></li>
+   		<li><router-link to="/study">놀기</router-link></li>
+   		<li><router-link to="/study">꼭 할일!</router-link></li>
+   </ul>
+   <router-view></router-view>
+</div>
+</body>
+
+<script type="text/javascript">
+	 let store = new Vuex.Store({
+		state : {
+			selectQuestion : {}
+		}
+			});
+ 		
+	 	const routes = [
+			{path : '/study', component : studyList}
+			//{path : '/study', component : studyList}
+			//{path : '/study', component : studyList}
+			//{path : '/study', component : studyList}
+				
+			]; 
+		const router = new VueRouter({
+			routes : routes
+		});
+		 
+		var vm = new Vue({
+			el : '#app',
+			router,
+			store
+		});
+		
+	</script>
+
+</html>
