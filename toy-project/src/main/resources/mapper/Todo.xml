@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="todo">
+
+    <insert id="InsertTodo" parameterType="Todo">
+        insert into todo(todo_date, todo_title, todo_desc, todo_category)
+        values (#{todo_date}, #{todo_title},#{todo_desc},#{todo_category})
+	</insert>
+
+    <update id="UpdateTodo" parameterType="Todo">
+        update todo
+        set todo_date=#{todo_date}, todo_title=#{todo_title}, todo_desc=#{todo_desc},
+            todo_category=#{todo_category}, todo_iscomplete=#{todo_iscomplete}, todo_isdel=#{todo_isdel}
+        where todo_no=#{todo_no}
+	</update>
+
+    <delete id="DeleteUser" parameterType="long">
+        delete from todo
+        where todo_no=#{todo_no}
+	</delete>
+
+    <select id="SelectTodo" parameterType="long" resultType="Todo">
+        select * from todo
+        where todo_no=#{todo_no}
+	</select>
+
+    <select id="SelectTodoList" resultType="Todo">
+        select * from todo
+	</select>
+
+
+</mapper>
+
+
+
