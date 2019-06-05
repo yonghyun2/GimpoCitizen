@@ -32,7 +32,7 @@ public class TodoService {
     }
 
     public boolean updateTodo(Todo todo){
-        if(todoDao.selectTodo(todo.getTodo_no())==null{
+        if(todoDao.selectTodo(todo.getTodo_no())==null){
             return false;
         }
         todoDao.updateTodo(todo);

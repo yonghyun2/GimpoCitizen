@@ -1,5 +1,7 @@
 package com.gimpocitizen.toyproject.model.vo;
 
+import com.gimpocitizen.toyproject.model.service.TodoService;
+
 public class Todo {
 
     private long todo_no;
@@ -11,6 +13,8 @@ public class Todo {
     private boolean todo_isdel;
 
     public Todo() {
+        TodoService ts = new TodoService();
+        ts.fightingJusung();
     }
 
     public Todo(long todo_no, String todo_date, String todo_title, String todo_desc, String todo_category, boolean todo_iscomplete, boolean todo_isdel) {
